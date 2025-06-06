@@ -3,16 +3,17 @@ require_once '../db.php';
 session_start();
 if (!isset($_SESSION['admin'])) header('Location: login.php');
 
-// ДОДАВАННЯ
+// Додавання
 if (isset($_POST['add'])) {
     $name = $_POST['name'];
     $capacity = $_POST['capacity'];
-    $pdo->prepare("INSERT INTO classes (name, capacity) VALUES (?, ?)")->execute([$name, $capacity]);
+    $pdo->prepare("INSERT INTO classes (name, capacity) VALUES (?, ?)")
+        ->execute([$name, $capacity]);
     header("Location: classes.php");
     exit;
 }
 
-// ВИДАЛЕННЯ
+// Видалення
 if (isset($_GET['del'])) {
     $pdo->prepare("DELETE FROM classes WHERE id=?")->execute([$_GET['del']]);
     header("Location: classes.php");
@@ -29,14 +30,14 @@ $classes = $pdo->query("SELECT * FROM classes")->fetchAll();
 <tr>
     <td><?=htmlspecialchars($c['name'])?></td>
     <td><?=htmlspecialchars($c['capacity'])?></td>
-    <td><a href="?del=<?=$c['id']?>" onclick="return confirmDelete('Видалити заняття?')">❌</a></td>
+    <td><a href="?del=<?=$c['id']?>" onclick="return confirm('Видалити заняття?')">❌</a></td>
 </tr>
 <?php endforeach; ?>
 </table>
 <h3>Додати заняття</h3>
 <form method="post">
     <input type="text" name="name" placeholder="Назва" required>
-    <input type="number" name="capacity" placeholder="К-сть місць" required>
+    <input type="number" name="capacity" placeholder="Кількість місць" min="1" required>
     <button name="add" type="submit">Додати</button>
 </form>
 <?php include '../templates/footer.php'; ?>

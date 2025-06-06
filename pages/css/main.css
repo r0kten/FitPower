@@ -1,0 +1,21 @@
+body { margin:0; font-family:Arial,sans-serif; background:#f8fafc; color:#222; }
+header { background:#16283c; color:#fff; padding:18px 0 10px; }
+header .logo { font-size:2em; font-weight:bold; margin-left:30px; display:inline-block;}
+header .logo .blue { color:#1e90ff; }
+nav { display:inline-block; float:right; margin-right:30px; }
+nav a { color:#fff; text-decoration:none; margin:0 20px; font-size:1.1em; transition:.2s;}
+nav a:hover { color:#1e90ff;}
+main { max-width:950px; margin:30px auto 40px; background:#fff; border-radius:8px; padding:28px 32px; box-shadow:0 2px 12px #0001; min-height:440px;}
+footer { background:#16283c; color:#fff; text-align:center; padding:12px 0; position:relative; bottom:0; width:100%;}
+table { width:100%; border-collapse:collapse; margin:20px 0;}
+th,td { border-bottom:1px solid #ececec; padding:10px;}
+th { background:#f3f8fc; color:#1e90ff;}
+h2 { color:#1e90ff;}
+.btn { background:#1e90ff; color:#fff; padding:7px 18px; border:none; border-radius:3px; cursor:pointer;}
+.btn:hover { background:#125fad;}
+input, select, textarea { padding:6px; border-radius:3px; border:1px solid #ccc; margin:5px 0;}
+form { margin:18px 0;}
+@media (max-width: 700px) {
+  main { padding:16px 5px;}
+  header, nav { text-align:center; }
+}

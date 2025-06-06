@@ -1,56 +1,105 @@
 body {
     font-family: 'Segoe UI', Arial, sans-serif;
-    background: #f5f8fa;
+    background: #f4f7fa;
     margin: 0;
-    color: #222;
+    min-height: 100vh;
 }
 
-header, nav, footer {
-    background: #192655;
+.header-flex {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.8em 0;
+}
+
+.logo a {
+    font-weight: bold;
+    font-size: 1.6em;
+    color: #185adf;
+    text-decoration: none;
+}
+
+header {
+    background: #182848;
     color: #fff;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.03);
 }
 
 nav a {
     color: #fff;
     text-decoration: none;
-    margin: 0 14px;
+    margin-left: 1.2em;
+    font-weight: 500;
+    transition: color 0.2s;
 }
-
-nav a:hover {
-    color: #25a6f1;
-}
+nav a.logout { color: #ff5a5a; }
+nav a:hover { color: #7db3ff; }
 
 .container {
+    width: 96%;
     max-width: 1100px;
-    margin: auto;
-    padding: 30px 15px;
+    margin: 0 auto;
+    padding: 1em 0;
 }
 
-h1 {
-    color: #144272;
+main.container {
+    min-height: 75vh;
 }
 
-footer {
-    text-align: center;
-    padding: 30px 0;
-    margin-top: 80px;
-    position: relative;
-    bottom: 0;
-    width: 100%;
+h2, h3 {
+    color: #185adf;
 }
 
 table {
-    border-collapse: collapse;
     width: 100%;
-    margin: 25px 0;
+    border-collapse: collapse;
+    background: #fff;
+    margin-bottom: 2em;
+    box-shadow: 0 2px 8px rgba(24,88,180,0.04);
 }
-
 th, td {
-    border: 1px solid #ddd;
-    padding: 12px;
+    padding: 0.7em 0.9em;
+    border-bottom: 1px solid #e5e9f1;
+    text-align: left;
+}
+th { background: #f0f5ff; color: #294187; }
+tr:hover { background: #f3f8fe; }
+
+form input, form select, form button {
+    padding: 0.55em 0.8em;
+    margin: 0.35em 0.5em 0.35em 0;
+    border: 1px solid #b7c6e0;
+    border-radius: 5px;
+    font-size: 1em;
+}
+form button {
+    background: #185adf;
+    color: #fff;
+    font-weight: bold;
+    cursor: pointer;
+    border: none;
+    transition: background 0.15s;
+}
+form button:hover { background: #153a7a; }
+
+footer {
+    background: #182848;
+    color: #fff;
+    text-align: center;
+    padding: 1em 0 0.5em 0;
+    position: relative;
+    bottom: 0;
+    width: 100%;
+    margin-top: 3em;
+    box-shadow: 0 -1px 8px rgba(24,88,180,0.04);
 }
 
-th {
-    background: #192655;
-    color: #fff;
+/* Адаптив */
+@media (max-width: 700px) {
+    .header-flex { flex-direction: column; }
+    nav a { display: block; margin: 0.4em 0 0 0; }
+    .container { width: 98%; }
+    table, thead, tbody, th, td, tr { display: block; }
+    th, td { padding: 0.5em; }
+    table tr { margin-bottom: 1em; }
 }

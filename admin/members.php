@@ -3,7 +3,7 @@ require_once '../db.php';
 session_start();
 if (!isset($_SESSION['admin'])) header('Location: login.php');
 
-// ДОДАВАННЯ
+// Додавання
 if (isset($_POST['add'])) {
     $full_name = $_POST['full_name'];
     $email = $_POST['email'];
@@ -15,7 +15,7 @@ if (isset($_POST['add'])) {
     exit;
 }
 
-// ВИДАЛЕННЯ
+// Видалення
 if (isset($_GET['del'])) {
     $pdo->prepare("DELETE FROM members WHERE id=?")->execute([$_GET['del']]);
     header("Location: members.php");
@@ -36,7 +36,7 @@ $members = $pdo->query("SELECT m.*, p.name as plan_name FROM members m LEFT JOIN
     <td><?=htmlspecialchars($m['email'])?></td>
     <td><?=htmlspecialchars($m['phone'])?></td>
     <td><?=htmlspecialchars($m['plan_name'])?></td>
-    <td><a href="?del=<?=$m['id']?>" onclick="return confirmDelete('Видалити клієнта?')">❌</a></td>
+    <td><a href="?del=<?=$m['id']?>" onclick="return confirm('Видалити клієнта?')">❌</a></td>
 </tr>
 <?php endforeach; ?>
 </table>
