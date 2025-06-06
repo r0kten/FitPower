@@ -3,39 +3,36 @@ require_once '../db.php';
 session_start();
 if (!isset($_SESSION['admin'])) header('Location: login.php');
 
-// ДОДАВАННЯ
+// Додавання
 if (isset($_POST['add'])) {
     $full_name = $_POST['full_name'];
-    $spec = $_POST['specialization'];
-    $cert = $_POST['certification'];
+    $specialization = $_POST['specialization'];
+    $certification = $_POST['certification'];
     $pdo->prepare("INSERT INTO trainers (full_name, specialization, certification) VALUES (?, ?, ?)")
-        ->execute([$full_name, $spec, $cert]);
+        ->execute([$full_name, $specialization, $certification]);
     header("Location: trainers.php");
     exit;
 }
 
-// ВИДАЛЕННЯ
+// Видалення
 if (isset($_GET['del'])) {
     $pdo->prepare("DELETE FROM trainers WHERE id=?")->execute([$_GET['del']]);
     header("Location: trainers.php");
     exit;
 }
 
-// ВИТЯГ ВСІХ
 $trainers = $pdo->query("SELECT * FROM trainers")->fetchAll();
 ?>
 <?php include '../templates/header.php'; ?>
 <h2>Тренери</h2>
 <table>
-<tr><th>ПІБ</th><th>Спеціалізація</th><th>Сертифікати</th><th></th></tr>
-<?php foreach($trainers as $tr): ?>
+<tr><th>ПІБ</th><th>Спеціалізація</th><th>Сертифікат</th><th></th></tr>
+<?php foreach($trainers as $t): ?>
 <tr>
-    <td><?=htmlspecialchars($tr['full_name'])?></td>
-    <td><?=htmlspecialchars($tr['specialization'])?></td>
-    <td><?=htmlspecialchars($tr['certification'])?></td>
-    <td>
-        <a href="?del=<?=$tr['id']?>" onclick="return confirmDelete('Видалити тренера?')">❌</a>
-    </td>
+    <td><?=htmlspecialchars($t['full_name'])?></td>
+    <td><?=htmlspecialchars($t['specialization'])?></td>
+    <td><?=htmlspecialchars($t['certification'])?></td>
+    <td><a href="?del=<?=$t['id']?>" onclick="return confirm('Видалити тренера?')">❌</a></td>
 </tr>
 <?php endforeach; ?>
 </table>

@@ -21,6 +21,7 @@ if (!isset($_SESSION['admin'])) {
         <a href="classes.php">Групові заняття</a> |
         <a href="sessions.php">Розклад</a> |
         <a href="bookings.php">Бронювання</a> |
+        <a href="membership_plans.php">Абонементи</a> |
         <a href="logout.php" style="float:right;">Вийти</a>
     </nav>
 </div>
