@@ -296,3 +296,44 @@ form { margin: 18px 0; }
 
 a { color: #288cf7; text-decoration: none; transition: color .16s;}
 a:hover { color: #143b6c; text-decoration: underline; }
+
+
+.trainers-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 32px;
+    margin-bottom: 32px;
+}
+.trainer-card {
+    background: #f8fafd;
+    box-shadow: 0 2px 14px #15326913;
+    border-radius: 12px;
+    padding: 24px;
+    min-width: 270px;
+    max-width: 330px;
+    flex: 1 1 270px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 24px;
+}
+.trainer-card img {
+    width: 88px; height: 88px; object-fit: cover;
+    border-radius: 50%; margin-bottom: 12px;
+    box-shadow: 0 2px 8px #288cf722;
+}
+.trainer-card h3 {
+    margin: 0 0 8px 0;
+    color: #153269;
+    font-size: 1.13rem;
+}
+.trainer-card .trainer-desc { color: #465380; font-size: 0.98rem; margin-bottom: 6px;}
+.trainer-card .trainer-rating { font-size: 1.13rem; margin-bottom: 7px;}
+.trainer-reviews { margin-top: 14px; }
+.trainer-reviews .review { background: #f4f8ff; border-radius: 7px; margin-bottom: 7px; padding: 8px 12px; font-size: .98rem;}
+
+@keyframes showUp {
+    from { transform: translateY(45px) scale(.97); opacity: 0.1;}
+    to   { transform: none; opacity: 1;}
+  }
+  
