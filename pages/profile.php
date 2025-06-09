@@ -2,20 +2,20 @@
 session_start();
 require_once '../db.php';
 
+// Перевірка авторизації
 if (!isset($_SESSION['user_id'])) {
     header('Location: login.php');
     exit;
 }
-
 $user_id = $_SESSION['user_id'];
-// Отримуємо дані користувача та плану
-$stmt = $pdo->prepare("SELECT m.*, p.name AS plan_name, p.price, m.membership_expires 
-                       FROM members m 
-                       LEFT JOIN membership_plans p ON m.membership_plan_id = p.id 
+
+// Отримати дані користувача + абонемент
+$stmt = $pdo->prepare("SELECT m.*, p.name AS plan_name, p.price, m.membership_expires
+                       FROM members m
+                       LEFT JOIN membership_plans p ON m.membership_plan_id = p.id
                        WHERE m.id = ?");
 $stmt->execute([$user_id]);
 $user = $stmt->fetch();
-
 if (!$user) {
     session_destroy();
     header('Location: login.php');
@@ -23,7 +23,7 @@ if (!$user) {
 }
 
 $error = '';
-// Оновлення email та телефону
+// Оновлення email/телефону
 if (isset($_POST['update'])) {
     $email = trim($_POST['email']);
     $phone = trim($_POST['phone']);
@@ -46,7 +46,9 @@ if (isset($_POST['update_pass'])) {
     }
 }
 ?>
+
 <?php include 'templates/header.php'; ?>
+<div class="container">
 <h2>Особистий кабінет</h2>
 <?php if (isset($_GET['updated'])): ?>
     <div class="alert success">Дані оновлено!</div>
@@ -82,12 +84,14 @@ if (isset($_POST['update_pass'])) {
 
 <a href="logout.php" class="logout-btn">Вийти</a>
 <hr>
+
 <!-- Кнопка продовження абонемента -->
 <form method="post" action="renew.php" style="margin-top: 20px;">
     <button type="submit" class="renew-btn">Продoвжити абонемент</button>
 </form>
 
-<!-- Тут підключимо блок "Мої заняття" -->
+<!-- Історія занять -->
 <?php include 'my_bookings.php'; ?>
 
+</div>
 <?php include 'templates/footer.php'; ?>
