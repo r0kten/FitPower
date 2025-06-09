@@ -1,8 +1,10 @@
 <?php
 require_once '../db.php';
 session_start();
-if (!isset($_SESSION['admin'])) header('Location: login.php');
-
+if (!isset($_SESSION['admin_id'])) {
+    header('Location: login.php');
+    exit;
+}
 // Додавання
 if (isset($_POST['add'])) {
     $name = $_POST['name'];
@@ -22,7 +24,7 @@ if (isset($_GET['del'])) {
 
 $classes = $pdo->query("SELECT * FROM classes")->fetchAll();
 ?>
-<?php include '../templates/header.php'; ?>
+<?php include '../admin/templates/header.php'; ?>
 <h2>Групові заняття</h2>
 <table>
 <tr><th>Назва</th><th>К-сть місць</th><th></th></tr>
@@ -40,4 +42,4 @@ $classes = $pdo->query("SELECT * FROM classes")->fetchAll();
     <input type="number" name="capacity" placeholder="Кількість місць" min="1" required>
     <button name="add" type="submit">Додати</button>
 </form>
-<?php include '../templates/footer.php'; ?>
+<?php include '../admin/templates/footer.php'; ?>

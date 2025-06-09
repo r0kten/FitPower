@@ -1,7 +1,10 @@
 <?php
 require_once '../db.php';
 session_start();
-if (!isset($_SESSION['admin'])) header('Location: login.php');
+if (!isset($_SESSION['admin_id'])) {
+    header('Location: login.php');
+    exit;
+}
 
 // Додавання абонементу
 if (isset($_POST['add'])) {
@@ -23,7 +26,7 @@ if (isset($_GET['del'])) {
 
 $plans = $pdo->query("SELECT * FROM membership_plans")->fetchAll();
 ?>
-<?php include '../templates/header.php'; ?>
+<?php include '../admin/templates/header.php'; ?>
 <h2>Абонементи</h2>
 <table>
 <tr><th>Назва</th><th>Тривалість (міс)</th><th>Ціна</th><th></th></tr>
@@ -43,4 +46,4 @@ $plans = $pdo->query("SELECT * FROM membership_plans")->fetchAll();
     <input type="number" name="price" step="0.01" placeholder="Ціна" min="0" required>
     <button name="add" type="submit">Додати</button>
 </form>
-<?php include '../templates/footer.php'; ?>
+<?php include '../admin/templates/footer.php'; ?>

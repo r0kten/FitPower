@@ -1,7 +1,10 @@
 <?php
 require_once '../db.php';
 session_start();
-if (!isset($_SESSION['admin'])) header('Location: login.php');
+if (!isset($_SESSION['admin_id'])) {
+    header('Location: login.php');
+    exit;
+}
 
 // Додавання
 if (isset($_POST['add'])) {
@@ -23,7 +26,7 @@ if (isset($_GET['del'])) {
 
 $trainers = $pdo->query("SELECT * FROM trainers")->fetchAll();
 ?>
-<?php include '../templates/header.php'; ?>
+<?php include '../admin/templates/header.php'; ?>
 <h2>Тренери</h2>
 <table>
 <tr><th>ПІБ</th><th>Спеціалізація</th><th>Сертифікат</th><th></th></tr>
@@ -43,4 +46,4 @@ $trainers = $pdo->query("SELECT * FROM trainers")->fetchAll();
     <input type="text" name="certification" placeholder="Сертифікат">
     <button name="add" type="submit">Додати</button>
 </form>
-<?php include '../templates/footer.php'; ?>
+<?php include '../admin/templates/footer.php'; ?>
