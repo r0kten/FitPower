@@ -23,6 +23,8 @@ if (!isset($page_class)) $page_class = '';
         <a href="trainers.php">Тренери</a>
         <a href="plans.php">Абонементи</a>
         <a href="contacts.php">Контакти</a>
+        <a href="club_feedback.php">Відгуки</a>
+
         <?php if(isset($_SESSION['user_id'])): ?>
             <a href="profile.php">Кабінет</a>
             <a href="logout.php" class="btn-logout">Вийти</a>
