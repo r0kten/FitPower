@@ -11,4 +11,7 @@
     <a href="../admin/" class="btn" style="font-size:1.05rem;padding:7px 22px;margin-bottom:6px;">Адмін-панель</a><br>
     <a href="../pages" class="btn" style="font-size:1.01rem;padding:6px 20px;">На сайт</a>
   </div>
+  
 <?php endif; ?>
+
+

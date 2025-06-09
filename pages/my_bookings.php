@@ -1,54 +1,53 @@
 <?php
-
-require_once '../db.php';
-$user_id = $_SESSION['user_id'] ?? 0;
-
-// Скасування
-if (isset($_GET['cancel']) && is_numeric($_GET['cancel'])) {
-    $stmt = $pdo->prepare("UPDATE bookings SET status = 'cancelled' WHERE id = ? AND member_id = ?");
-    $stmt->execute([$_GET['cancel'], $user_id]);
-    header("Location: profile.php?cancelled=1");
-    exit;
-}
-
-// Витягуємо записи
-$stmt = $pdo->prepare("
-    SELECT b.*, s.session_date, s.duration, c.name as class_name, t.full_name as trainer
-    FROM bookings b
-    JOIN sessions s ON b.session_id = s.id
-    JOIN classes c ON s.class_id = c.id
-    JOIN trainers t ON s.trainer_id = t.id
-    WHERE b.member_id = ?
-    ORDER BY s.session_date DESC
-");
-$stmt->execute([$user_id]);
-$bookings = $stmt->fetchAll();
+// $user_id має бути заданий!
+$today = date('Y-m-d H:i:s');
+$q = $pdo->prepare("SELECT b.id, s.session_date, c.name as class_name, t.full_name as trainer, b.status
+                    FROM bookings b
+                    JOIN sessions s ON b.session_id = s.id
+                    JOIN classes c ON s.class_id = c.id
+                    JOIN trainers t ON s.trainer_id = t.id
+                    WHERE b.member_id=?
+                    ORDER BY s.session_date DESC");
+$q->execute([$user_id]);
+$bookings = $q->fetchAll();
 ?>
-<h3>Мої записи на тренування</h3>
-<table>
-<tr>
-    <th>Дата</th><th>Час</th><th>Заняття</th><th>Тренер</th><th>Статус</th><th></th>
-</tr>
-<?php foreach ($bookings as $b): ?>
-<tr>
-    <td><?=date('d.m.Y', strtotime($b['session_date']))?></td>
-    <td><?=date('H:i', strtotime($b['session_date']))?></td>
-    <td><?=htmlspecialchars($b['class_name'])?></td>
-    <td><?=htmlspecialchars($b['trainer'])?></td>
-    <td>
-        <?php
-            if ($b['status'] == 'pending') echo '<span style="color:orange">Очікує</span>';
-            elseif ($b['status'] == 'confirmed') echo '<span style="color:green">Підтверджено</span>';
-            elseif ($b['status'] == 'cancelled') echo '<span style="color:red">Скасовано</span>';
-        ?>
-    </td>
-    <td>
-        <?php if ($b['status'] == 'pending' && strtotime($b['session_date']) > time()): ?>
-            <a href="?cancel=<?=$b['id']?>" onclick="return confirm('Скасувати запис?')" style="color:red;">Скасувати</a>
-        <?php else: ?>
-            —
-        <?php endif; ?>
-    </td>
-</tr>
-<?php endforeach; ?>
-</table>
+
+<h3>Мої заняття</h3>
+<?php if (!$bookings): ?>
+    <div class="empty-message">У вас поки що немає записів.</div>
+<?php else: ?>
+    <table class="bookings-table">
+    <tr>
+        <th>Дата</th><th>Час</th><th>Заняття</th><th>Тренер</th><th>Статус</th><th></th>
+    </tr>
+    <?php foreach($bookings as $b):
+        $date = date('d.m.Y', strtotime($b['session_date']));
+        $time = date('H:i', strtotime($b['session_date']));
+        $isFuture = strtotime($b['session_date']) > strtotime('now');
+    ?>
+    <tr>
+        <td><?=$date?></td>
+        <td><?=$time?></td>
+        <td><?=htmlspecialchars($b['class_name'])?></td>
+        <td><?=htmlspecialchars($b['trainer'])?></td>
+        <td>
+            <?php if ($b['status'] == 'cancelled'): ?>
+                <span class="status past">Скасовано</span>
+            <?php elseif ($isFuture): ?>
+                <span class="status upcoming">Заплановано</span>
+            <?php else: ?>
+                <span class="status past">Завершено</span>
+            <?php endif; ?>
+        </td>
+        <td>
+            <?php if ($isFuture && $b['status'] !== 'cancelled'): ?>
+                <form method="post" action="cancel_booking.php" style="display:inline;">
+                    <input type="hidden" name="booking_id" value="<?=$b['id']?>">
+                    <button type="submit" class="btn" onclick="return confirm('Скасувати запис?')">Відмінити</button>
+                </form>
+            <?php endif; ?>
+        </td>
+    </tr>
+    <?php endforeach; ?>
+    </table>
+<?php endif; ?>
