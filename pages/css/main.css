@@ -1,21 +1,298 @@
-body { margin:0; font-family:Arial,sans-serif; background:#f8fafc; color:#222; }
-header { background:#16283c; color:#fff; padding:18px 0 10px; }
-header .logo { font-size:2em; font-weight:bold; margin-left:30px; display:inline-block;}
-header .logo .blue { color:#1e90ff; }
-nav { display:inline-block; float:right; margin-right:30px; }
-nav a { color:#fff; text-decoration:none; margin:0 20px; font-size:1.1em; transition:.2s;}
-nav a:hover { color:#1e90ff;}
-main { max-width:950px; margin:30px auto 40px; background:#fff; border-radius:8px; padding:28px 32px; box-shadow:0 2px 12px #0001; min-height:440px;}
-footer { background:#16283c; color:#fff; text-align:center; padding:12px 0; position:relative; bottom:0; width:100%;}
-table { width:100%; border-collapse:collapse; margin:20px 0;}
-th,td { border-bottom:1px solid #ececec; padding:10px;}
-th { background:#f3f8fc; color:#1e90ff;}
-h2 { color:#1e90ff;}
-.btn { background:#1e90ff; color:#fff; padding:7px 18px; border:none; border-radius:3px; cursor:pointer;}
-.btn:hover { background:#125fad;}
-input, select, textarea { padding:6px; border-radius:3px; border:1px solid #ccc; margin:5px 0;}
-form { margin:18px 0;}
-@media (max-width: 700px) {
-  main { padding:16px 5px;}
-  header, nav { text-align:center; }
+/* Reset і базове */
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+    font-family: 'Segoe UI', Arial, sans-serif;
+    margin: 0; padding: 0;
+    background: #f7faff;
+    color: #182042;
+    min-height: 100vh;
+    transition: background .3s;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
 }
+
+main, .container {
+    flex: 1 0 auto; /* Для того щоб футер був внизу, а main/container розтягувались */
+}
+
+/* Header */
+header {
+    background: #172446;
+    color: #fff;
+    padding: 20px 0 14px 0;
+    box-shadow: 0 2px 14px #131c3a12;
+    position: sticky; top: 0; z-index: 10;
+    transition: box-shadow 0.2s;
+}
+.logo {
+    font-size: 2.05rem;
+    font-weight: bold;
+    margin-left: 38px;
+    display: inline-block;
+    letter-spacing: 1.5px;
+    user-select: none;
+    transition: color .3s;
+}
+.logo .blue {
+    color: #288cf7;
+    transition: color 0.2s;
+}
+nav {
+    float: right;
+    margin-right: 40px;
+    display: flex;
+    gap: 18px;
+    align-items: center;
+}
+nav a {
+    color: #fff;
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 1.05rem;
+    padding: 7px 13px;
+    border-radius: 6px;
+    transition: background 0.18s, color 0.16s, box-shadow 0.21s;
+    position: relative;
+}
+nav a:after {
+    content: '';
+    display: block;
+    height: 2px;
+    width: 0;
+    background: #288cf7;
+    position: absolute;
+    left: 20%; bottom: 4px;
+    border-radius: 3px;
+    transition: width 0.24s;
+}
+nav a:hover, nav a.active {
+    color: #288cf7;
+    background: #fff3;
+    box-shadow: 0 2px 8px #288cf707;
+}
+nav a:hover:after, nav a.active:after { width: 60%; }
+
+/* Основний блок */
+main, .container {
+    max-width: 880px;
+    margin: 38px auto 0 auto;
+    background: #fff;
+    padding: 34px 38px 36px 38px;
+    border-radius: 18px;
+    box-shadow: 0 2px 22px #23315013;
+    min-height: 410px;
+    animation: showUp .6s cubic-bezier(.11,.6,.4,1.2);
+}
+@keyframes showUp {
+    from { transform: translateY(45px) scale(.97); opacity: 0.1;}
+    to   { transform: none; opacity: 1;}
+}
+
+footer {
+    flex-shrink: 0;
+    background: #121e38;
+    color: #eee;
+    text-align: center;
+    padding: 24px 0;
+    font-size: 1rem;
+    position: relative;
+    width: 100%;
+    margin-top: auto;
+}
+
+/* Далі все як у твоєму стилі — без змін */
+
+h1, h2, h3 { color: #153269; font-weight: bold; margin-bottom: 20px;}
+h2 {font-size: 1.32rem;}
+h3 {font-size: 1.08rem; color: #288cf7;}
+
+a.btn, button, .btn {
+    background: linear-gradient(95deg, #288cf7 70%, #42e9fe 120%);
+    color: #fff !important;
+    border: none;
+    padding: 11px 34px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 600;
+    box-shadow: 0 3px 12px #2071d525;
+    margin: 16px 0;
+    display: inline-block;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background 0.2s, box-shadow 0.19s, transform .18s;
+    position: relative;
+    overflow: hidden;
+}
+a.btn:active, button:active, .btn:active { transform: scale(.97); }
+a.btn:hover, button:hover, .btn:hover {
+    background: linear-gradient(95deg, #185fa6 65%, #3eacb7 120%);
+    box-shadow: 0 7px 18px #1863a820;
+}
+
+table, .schedule-table, .bookings-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 23px 0 32px 0;
+    background: #f5f9ff;
+    border-radius: 9px;
+    box-shadow: 0 2px 9px #1e90ff07;
+    overflow: hidden;
+    font-size: 1.03rem;
+    animation: fadeIn .8s;
+}
+@keyframes fadeIn {
+    from { opacity: .2; }
+    to   { opacity: 1; }
+}
+th, td {
+    padding: 11px 13px;
+    border-bottom: 1px solid #e2e8f0;
+    text-align: left;
+}
+th {
+    background: #e7f3fe;
+    color: #288cf7;
+    font-weight: bold;
+}
+tr:nth-child(even) td { background: #fafdff; }
+tr:hover td { background: #eaf4fd90; transition: background .13s; }
+
+input[type="text"], input[type="email"], input[type="password"], select, textarea {
+    padding: 9px 12px;
+    border-radius: 7px;
+    border: 1.5px solid #b9d1ef;
+    margin-bottom: 12px;
+    font-size: 1.05rem;
+    width: 100%;
+    transition: border .2s, box-shadow .15s;
+    background: #f6fbff;
+}
+input:focus, select:focus, textarea:focus {
+    border: 1.7px solid #288cf7;
+    background: #fafdff;
+    box-shadow: 0 0 6px #8fdbfc55;
+    outline: none;
+}
+
+form { margin: 18px 0; }
+
+.profile-block {
+    background: #f0f7ff;
+    padding: 18px 22px;
+    margin-bottom: 24px;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px #1e90ff0b;
+    max-width: 420px;
+    animation: showUp .6s cubic-bezier(.11,.6,.4,1.2);
+}
+
+.profile-form { margin-bottom: 22px; max-width: 430px;}
+.profile-form input { width: 100%; margin-bottom: 10px; padding: 8px;}
+.profile-form button {padding: 10px 22px;}
+.logout-btn {
+    display: inline-block;
+    margin-top: 22px;
+    background: #e92c2c;
+    color: #fff !important;
+    padding: 10px 26px;
+    border-radius: 6px;
+    text-decoration: none;
+    font-weight: 500;
+    box-shadow: 0 2px 8px #d0000022;
+    border: none;
+    transition: background .19s;
+}
+.logout-btn:hover { background: #c01919; }
+.renew-btn { background: #288cf7; color: #fff; margin-left: 0;}
+.renew-btn:hover { background: #185fa6; }
+
+.alert.success {
+    background: #e6ffee;
+    color: #159e44;
+    padding: 10px 16px;
+    border-radius: 7px;
+    margin-bottom: 16px;
+    border: 1px solid #b7ebce;
+    animation: fadeIn .6s;
+}
+.alert.error {
+    background: #ffeaea;
+    color: #a91616;
+    padding: 10px 16px;
+    border-radius: 7px;
+    margin-bottom: 16px;
+    border: 1px solid #ffc3c3;
+    animation: fadeIn .6s;
+}
+
+.bookings-table {
+    border: 1px solid #e0e0e0;
+    margin-top: 18px;
+    background: #fbfdff;
+}
+.bookings-table th, .bookings-table td {
+    border: 1px solid #e0e0e0;
+    padding: 9px 12px;
+    text-align: left;
+}
+.status.upcoming { color: #007bff; font-weight: bold; }
+.status.past { color: #aaa; }
+
+.day-schedule { margin-bottom: 32px; }
+.day-schedule h3 {
+    margin-top: 13px;
+    margin-bottom: 7px;
+    color: #288cf7;
+    font-weight: 700;
+    font-size: 1.12rem;
+    letter-spacing: 0.5px;
+}
+
+.filters {
+    display: flex;
+    gap: 16px;
+    margin-bottom: 24px;
+    align-items: center;
+}
+.filters select, .filters button {
+    padding: 8px 16px;
+    border: 1px solid #aac5e7;
+    border-radius: 6px;
+    font-size: 1rem;
+}
+.filters button {
+    background: #227af4;
+    color: #fff;
+    cursor: pointer;
+    border: none;
+    transition: background .17s;
+}
+.filters button:hover { background: #185ac6; }
+.filters a { color: #888; text-decoration: underline; font-size: 0.95rem; }
+.empty-message {
+    padding: 24px 0;
+    color: #ad2e2e;
+    font-size: 1.12rem;
+    text-align: center;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+}
+
+/* Мобільна адаптація */
+@media (max-width: 900px) {
+    main, .container { padding: 18px 4vw; }
+    .profile-block, .profile-form { max-width: 98%; }
+    nav { margin-right: 5vw; }
+}
+@media (max-width: 700px) {
+    main, .container { padding: 9px 2vw; }
+    header, footer { font-size: 0.93rem; }
+    nav { float: none; display: block; margin: 9px 0 0 0; text-align: center; }
+    .logo { margin: 0 0 10px 0; display: block; text-align: center; }
+    .profile-block { margin-bottom: 18px;}
+}
+
+a { color: #288cf7; text-decoration: none; transition: color .16s;}
+a:hover { color: #143b6c; text-decoration: underline; }

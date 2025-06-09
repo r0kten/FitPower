@@ -1,39 +1,37 @@
 <?php
-session_start();
 require_once '../db.php';
+session_start();
+
+if (isset($_SESSION['admin_id'])) {
+    header('Location: members.php');
+    exit;
+}
 
 $error = '';
-if (isset($_POST['login'])) {
-    $username = trim($_POST['username']);
-    $password = $_POST['password'];
-
-    $stmt = $pdo->prepare("SELECT * FROM admins WHERE username=?");
-    $stmt->execute([$username]);
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $login = trim($_POST['login'] ?? '');
+    $pass = $_POST['password'] ?? '';
+    $stmt = $pdo->prepare("SELECT * FROM admins WHERE login = ?");
+    $stmt->execute([$login]);
     $admin = $stmt->fetch();
-
-    if ($admin && password_verify($password, $admin['password'])) {
-        $_SESSION['admin'] = $admin['id'];
-        header('Location: index.php');
+    if ($admin && password_verify($pass, $admin['password'])) {
+        $_SESSION['admin_id'] = $admin['id'];
+        $_SESSION['admin_login'] = $admin['login'];
+        header('Location: members.php');
         exit;
     } else {
-        $error = "Невірний логін або пароль!";
+        $error = 'Невірний логін або пароль!';
     }
 }
 ?>
-<!DOCTYPE html>
-<html lang="uk">
-<head>
-    <meta charset="UTF-8">
-    <title>Вхід для адміністратора</title>
-    <link rel="stylesheet" href="../assets/style.css">
-</head>
-<body>
-<h1>Вхід в адмін-панель</h1>
-<?php if ($error): ?><p style="color:red;"><?=$error?></p><?php endif; ?>
+<?php include '../admin/templates/header.php'; ?>
+<h2>Вхід в адмін-панель</h2>
+<?php if($error): ?>
+    <div class="alert error"><?= htmlspecialchars($error) ?></div>
+<?php endif; ?>
 <form method="post">
-    <label>Логін: <input type="text" name="username" required></label><br>
-    <label>Пароль: <input type="password" name="password" required></label><br>
-    <button type="submit" name="login">Увійти</button>
+    <input type="text" name="login" placeholder="Логін" required><br>
+    <input type="password" name="password" placeholder="Пароль" required><br>
+    <button type="submit">Увійти</button>
 </form>
-</body>
-</html>
+<?php include '../admin/templates/footer.php'; ?>
