@@ -45,53 +45,64 @@ if (isset($_POST['update_pass'])) {
         $error = "Паролі не співпадають або надто короткі!";
     }
 }
+$page_class = 'profile';
+include 'templates/header.php';
 ?>
+<main>
+  <section class="profile-section-row">
+    <div class="profile-left">
+      <div class="profile-block">
+        <h1 class="profile-title">Особистий кабінет</h1>
+        <?php if (isset($_GET['updated'])): ?>
+          <div class="alert success">Дані оновлено!</div>
+        <?php endif; ?>
+        <?php if (isset($_GET['pass_updated'])): ?>
+          <div class="alert success">Пароль змінено!</div>
+        <?php endif; ?>
+        <?php if (!empty($error)): ?>
+          <div class="alert error"><?= htmlspecialchars($error) ?></div>
+        <?php endif; ?>
 
-<?php include 'templates/header.php'; ?>
-<div class="container">
-<h2>Особистий кабінет</h2>
-<?php if (isset($_GET['updated'])): ?>
-    <div class="alert success">Дані оновлено!</div>
-<?php endif; ?>
-<?php if (isset($_GET['pass_updated'])): ?>
-    <div class="alert success">Пароль змінено!</div>
-<?php endif; ?>
-<?php if (!empty($error)): ?>
-    <div class="alert error"><?= htmlspecialchars($error) ?></div>
-<?php endif; ?>
+        <div class="profile-info">
+          <div class="profile-avatar"><?=mb_substr($user['full_name'], 0, 1)?></div>
+          <div>
+            <div class="profile-name"><?=htmlspecialchars($user['full_name'])?></div>
+            <div class="profile-field"><b>Email:</b> <?=htmlspecialchars($user['email'])?></div>
+            <div class="profile-field"><b>Телефон:</b> <?=htmlspecialchars($user['phone'])?></div>
+          </div>
+        </div>
+        <div class="profile-membership">
+          <div><b>Абонемент:</b> <?=htmlspecialchars($user['plan_name'] ?: '—')?></div>
+          <div><b>Вартість:</b> <?= $user['price'] ? number_format($user['price'], 2) . ' ₴' : '—' ?></div>
+          <div><b>Діє до:</b> <?= $user['membership_expires'] ? htmlspecialchars(date('d.m.Y', strtotime($user['membership_expires']))) : '—' ?></div>
+        </div>
+        <form method="post" action="renew.php" class="renew-form">
+          <button type="submit" class="btn btn-outline-primary">Продoвжити абонемент</button>
+        </form>
 
-<div class="profile-block">
-    <p><b>ПІБ:</b> <?=htmlspecialchars($user['full_name'])?></p>
-    <p><b>Email:</b> <?=htmlspecialchars($user['email'])?></p>
-    <p><b>Телефон:</b> <?=htmlspecialchars($user['phone'])?></p>
-    <p><b>Абонемент:</b> <?=htmlspecialchars($user['plan_name'])?> (<?=number_format($user['price'], 2)?> ₴)</p>
-    <p><b>Діє до:</b> <?=$user['membership_expires'] ? htmlspecialchars(date('d.m.Y', strtotime($user['membership_expires']))) : '—' ?></p>
-</div>
+        <h2 class="profile-subtitle">Оновити особисті дані</h2>
+        <form method="post" class="profile-form">
+          <input type="email" name="email" value="<?=htmlspecialchars($user['email'])?>" required>
+          <input type="text" name="phone" value="<?=htmlspecialchars($user['phone'])?>" placeholder="Телефон">
+          <button type="submit" name="update" class="btn btn-primary">Зберегти</button>
+        </form>
 
-<h3>Оновити дані</h3>
-<form method="post" class="profile-form">
-    <input type="email" name="email" value="<?=htmlspecialchars($user['email'])?>" required>
-    <input type="text" name="phone" value="<?=htmlspecialchars($user['phone'])?>" placeholder="Телефон">
-    <button type="submit" name="update">Зберегти</button>
-</form>
+        <h2 class="profile-subtitle">Змінити пароль</h2>
+        <form method="post" class="profile-form">
+          <input type="password" name="pass" placeholder="Новий пароль (мін. 6 символів)" required>
+          <input type="password" name="pass2" placeholder="Повторіть пароль" required>
+          <button type="submit" name="update_pass" class="btn btn-primary">Змінити</button>
+        </form>
 
-<h3>Змінити пароль</h3>
-<form method="post" class="profile-form">
-    <input type="password" name="pass" placeholder="Новий пароль (мін. 6 символів)" required>
-    <input type="password" name="pass2" placeholder="Повторіть пароль" required>
-    <button type="submit" name="update_pass">Змінити</button>
-</form>
-
-<a href="logout.php" class="logout-btn">Вийти</a>
-<hr>
-
-<!-- Кнопка продовження абонемента -->
-<form method="post" action="renew.php" style="margin-top: 20px;">
-    <button type="submit" class="renew-btn">Продoвжити абонемент</button>
-</form>
-
-<!-- Історія занять -->
-<?php include 'my_bookings.php'; ?>
-
-</div>
+        <a href="logout.php" class="logout-btn">Вийти з кабінету</a>
+      </div>
+    </div>
+    <div class="profile-right">
+      <div class="profile-history-block">
+        <h2 class="profile-history-title">Історія відвідувань та записів</h2>
+        <?php include 'my_bookings.php'; ?>
+      </div>
+    </div>
+  </section>
+</main>
 <?php include 'templates/footer.php'; ?>

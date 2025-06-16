@@ -10,7 +10,7 @@
 <body>
     <header>
         <div class="container header-flex">
-            <div class="logo"><a href="/FitPower/admin/index.php">PowerFit</a></div>
+            <div class="logo"><a href="">PowerFit</a></div>
             <nav>
                 <a href="index.php">Головна</a>
                 <a href="members.php">Клієнти</a>
