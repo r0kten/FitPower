@@ -114,3 +114,77 @@ body { font-family: 'Segoe UI', sans-serif; color:#1a1a1a; background:#f7faff; }
   .pf-nav { flex-direction:column; display:none; width:100%; margin-top:12px; }
   .burger { display:flex; }
 }
+
+/* === Хедер новий стиль === */
+.pf-header {
+  background:linear-gradient(90deg,#172446,#20325c);
+  padding:12px 0;
+}
+.pf-header-inner {
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+}
+.pf-header-spacer { height:70px; }
+
+/* === Таблиці === */
+table {
+  width:100%;
+  border-collapse:collapse;
+  background:#fff;
+  margin-bottom:24px;
+  box-shadow:0 2px 6px rgba(0,0,0,0.05);
+}
+th, td {
+  padding:10px 14px;
+  border-bottom:1px solid #e2e8f0;
+  text-align:left;
+}
+th {
+  background:#eef2f8;
+  color:#172446;
+}
+tr:nth-child(even) { background:#f9fbff; }
+
+/* === Профіль === */
+.profile-block {
+  background:#fff;
+  padding:20px;
+  border-radius:8px;
+  box-shadow:0 1px 6px rgba(0,0,0,0.05);
+  margin-bottom:20px;
+  line-height:1.5;
+}
+.profile-form {
+  max-width:420px;
+  margin-bottom:30px;
+}
+.profile-form input {
+  width:100%;
+  padding:10px;
+  margin-bottom:10px;
+  border:1px solid #cdd5df;
+  border-radius:4px;
+}
+.profile-form button {
+  background:#1f7cd8;
+  color:#fff;
+  border:0;
+  padding:10px 20px;
+  border-radius:4px;
+  cursor:pointer;
+}
+.profile-form button:hover { background:#1558b0; }
+.logout-btn, .renew-btn {
+  display:inline-block;
+  padding:10px 20px;
+  margin:8px 4px 20px 0;
+  background:#172446;
+  color:#fff;
+  border-radius:4px;
+  text-decoration:none;
+}
+.logout-btn:hover, .renew-btn:hover { background:#1f7cd8; }
+.empty-message { padding:10px; background:#f0f5ff; border-radius:4px; margin-bottom:10px; }
+.status.upcoming { color:#1f7cd8; font-weight:600; }
+.status.past { color:#888; }

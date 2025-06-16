@@ -20,26 +20,28 @@ if (!isset($page_class)) $page_class = '';
 
 <body class="<?=htmlspecialchars($page_class)?>">
 <header class="pf-header">
-    <div class="pf-logo">
-        <a href="/index.php"><i class="fas fa-dumbbell"></i> <span>Power</span><span class="blue">Fit</span></a>
-    </div>
-    <nav class="pf-nav">
-        <a href="index.php">Головна</a>
-        <a href="schedule.php">Розклад</a>
-        <a href="trainers.php">Тренери</a>
-        <a href="plans.php">Абонементи</a>
-        <a href="contacts.php">Контакти</a>
-        <a href="club_feedback.php">Відгуки</a>
+    <div class="container pf-header-inner">
+        <div class="pf-logo">
+            <a href="/index.php"><i class="fas fa-dumbbell"></i> <span>Power</span><span class="blue">Fit</span></a>
+        </div>
+        <nav class="pf-nav">
+            <a href="index.php">Головна</a>
+            <a href="schedule.php">Розклад</a>
+            <a href="trainers.php">Тренери</a>
+            <a href="plans.php">Абонементи</a>
+            <a href="contacts.php">Контакти</a>
+            <a href="club_feedback.php">Відгуки</a>
 
-        <?php if(isset($_SESSION['user_id'])): ?>
-            <a href="profile.php">Кабінет</a>
-            <a href="logout.php" class="btn-logout">Вийти</a>
-        <?php else: ?>
-            <a href="login.php" class="btn-login">Увійти</a>
-            <a href="register.php" class="btn-login">Зареєструватися</a>
-        <?php endif; ?>
-    </nav>
-    <button class="burger" aria-label="Меню"><span></span><span></span><span></span></button>
+            <?php if(isset($_SESSION['user_id'])): ?>
+                <a href="profile.php">Кабінет</a>
+                <a href="logout.php" class="btn-logout">Вийти</a>
+            <?php else: ?>
+                <a href="login.php" class="btn-login">Увійти</a>
+                <a href="register.php" class="btn-login">Зареєструватися</a>
+            <?php endif; ?>
+        </nav>
+        <button class="burger" aria-label="Меню"><span></span><span></span><span></span></button>
+    </div>
 </header>
 <div class="pf-header-spacer"></div>
 <script>
