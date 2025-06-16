@@ -6,10 +6,11 @@ if (!isset($page_class)) $page_class = '';
 <html lang="uk">
 <head>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
     <meta charset="UTF-8">
     <title>PowerFit — Фітнес Клуб</title>
-    <link rel="stylesheet" href="../pages/css/main.css">
+    <link rel="stylesheet" href="../css/main.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- Google Fonts: Segoe UI альтернативи -->
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
@@ -20,7 +21,7 @@ if (!isset($page_class)) $page_class = '';
 <body class="<?=htmlspecialchars($page_class)?>">
 <header class="pf-header">
     <div class="pf-logo">
-        <a href="/index.php"><span>Power</span><span class="blue">Fit</span></a>
+        <a href="/index.php"><i class="fas fa-dumbbell"></i> <span>Power</span><span class="blue">Fit</span></a>
     </div>
     <nav class="pf-nav">
         <a href="index.php">Головна</a>
