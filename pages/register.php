@@ -2,9 +2,6 @@
 require_once '../db.php';
 session_start();
 
-$_SESSION['user_id'] = $user_id; // $user_id — id доданого користувача
-$_SESSION['user_email'] = $email;
-
 $error = '';
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $full_name = trim($_POST['full_name']);

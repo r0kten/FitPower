@@ -5,6 +5,8 @@ if (!isset($page_class)) $page_class = '';
 <!DOCTYPE html>
 <html lang="uk">
 <head>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
     <meta charset="UTF-8">
     <title>PowerFit — Фітнес Клуб</title>
     <link rel="stylesheet" href="../pages/css/main.css">
@@ -12,6 +14,9 @@ if (!isset($page_class)) $page_class = '';
     <!-- Google Fonts: Segoe UI альтернативи -->
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
 </head>
+<!-- Bootstrap JS (Bundle з Popper) -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
 <body class="<?=htmlspecialchars($page_class)?>">
 <header class="pf-header">
     <div class="pf-logo">
@@ -30,6 +35,7 @@ if (!isset($page_class)) $page_class = '';
             <a href="logout.php" class="btn-logout">Вийти</a>
         <?php else: ?>
             <a href="login.php" class="btn-login">Увійти</a>
+            <a href="register.php" class="btn-login">Зареєструватися</a>
         <?php endif; ?>
     </nav>
     <button class="burger" aria-label="Меню"><span></span><span></span><span></span></button>
