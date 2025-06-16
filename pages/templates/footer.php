@@ -1,6 +1,5 @@
-</main>
-<footer>
-    <div>© <?=date('Y')?> PowerFit. Всі права захищені.</div>
+<footer class="site-footer">
+  © 2025 PowerFit. Всі права захищені.
 </footer>
 </body>
 </html>

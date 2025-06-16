@@ -1,55 +1,42 @@
 <?php
-// Для різних background-сторінок — встанови $page_class у потрібному файлі перед підключенням header.php
-if (!isset($page_class)) $page_class = '';
+  if (session_status() !== PHP_SESSION_ACTIVE) session_start();
+  if (!isset($page_class)) $page_class = '';
 ?>
 <!DOCTYPE html>
 <html lang="uk">
 <head>
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-
-    <meta charset="UTF-8">
-    <title>PowerFit — Фітнес Клуб</title>
-    <link rel="stylesheet" href="../pages/css/main.css">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- Google Fonts: Segoe UI альтернативи -->
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+  <meta charset="UTF-8">
+  <title>FitPower</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/main.css">
 </head>
-<!-- Bootstrap JS (Bundle з Popper) -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-
-<body class="<?=htmlspecialchars($page_class)?>">
-<header class="pf-header">
-    <div class="pf-logo">
-        <a href="/index.php"><span>Power</span><span class="blue">Fit</span></a>
-    </div>
-    <nav class="pf-nav">
-        <a href="index.php">Головна</a>
-        <a href="schedule.php">Розклад</a>
-        <a href="trainers.php">Тренери</a>
-        <a href="plans.php">Абонементи</a>
-        <a href="contacts.php">Контакти</a>
-        <a href="club_feedback.php">Відгуки</a>
-
-        <?php if(isset($_SESSION['user_id'])): ?>
-            <a href="profile.php">Кабінет</a>
-            <a href="logout.php" class="btn-logout">Вийти</a>
-        <?php else: ?>
-            <a href="login.php" class="btn-login">Увійти</a>
-            <a href="register.php" class="btn-login">Зареєструватися</a>
-        <?php endif; ?>
+<body class="<?= htmlspecialchars($page_class) ?>">
+<header class="site-header">
+  <div class="header-inner container">
+    <div class="logo">Fit<span class="logo-accent">Power</span></div>
+    <nav class="site-nav" id="nav">
+      <a href="index.php" class="nav-link<?= $page_class=='home-page'?' active':'' ?>">Головна</a>
+      <a href="schedule.php" class="nav-link<?= $page_class=='schedule'?' active':'' ?>">Розклад</a>
+      <a href="trainers.php" class="nav-link<?= $page_class=='trainers'?' active':'' ?>">Тренери</a>
+      <a href="plans.php" class="nav-link<?= $page_class=='plans'?' active':'' ?>">Абонементи</a>
+      <a href="contacts.php" class="nav-link<?= $page_class=='contacts'?' active':'' ?>">Контакти</a>
+      <a href="club_feedback.php" class="nav-link<?= $page_class=='feedback'?' active':'' ?>">Відгуки</a>
+      <?php if (isset($_SESSION['user_id'])): ?>
+        <a href="profile.php" class="nav-link<?= $page_class=='profile'?' active':'' ?>">Профіль</a>
+        <a href="logout.php" class="nav-link">Вийти</a>
+      <?php else: ?>
+        <a href="login.php" class="nav-link<?= $page_class=='login'?' active':'' ?>">Увійти</a>
+        <a href="register.php" class="nav-link<?= $page_class=='register'?' active':'' ?>">Зареєструватися</a>
+      <?php endif; ?>
     </nav>
-    <button class="burger" aria-label="Меню"><span></span><span></span><span></span></button>
+    <button class="nav-toggle" id="navToggle" aria-label="Відкрити меню">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
 </header>
-<div class="pf-header-spacer"></div>
 <script>
-// --- Плавна поява хедера при завантаженні ---
-window.addEventListener('DOMContentLoaded', () => {
-    document.querySelector('.pf-header').classList.add('show');
-});
-
-// --- Мобільне меню ---
-document.querySelector('.burger').onclick = function() {
-    document.querySelector('.pf-nav').classList.toggle('nav-open');
-    this.classList.toggle('opened');
-};
+  document.getElementById('navToggle').onclick = function() {
+    document.getElementById('nav').classList.toggle('open');
+  };
 </script>
