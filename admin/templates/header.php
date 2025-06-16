@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="uk">
 <head>
+    
     <meta charset="UTF-8">
     <title>PowerFit - Адмін</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
