@@ -10,7 +10,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $stmt->execute([$email]);
     $user = $stmt->fetch();
     if ($user && password_verify($pass, $user['password'])) {
-        $_SESSION['user_id'] = $user['id'];    // зберігаємо id користувача
+        $_SESSION['user_id'] = $user['id'];
         $_SESSION['user_email'] = $user['email'];
         header('Location: profile.php');
         exit;
@@ -18,16 +18,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $error = 'Невірний логін або пароль!';
     }
 }
+include 'templates/header.php';
 ?>
-<?php include 'templates/header.php'; ?>
-<h2>Вхід</h2>
-<?php if($error): ?>
-    <p style="color:red;"><?= htmlspecialchars($error) ?></p>
-<?php endif; ?>
-<form method="post">
-    <input type="email" name="email" placeholder="Email" required><br>
-    <input type="password" name="password" placeholder="Пароль" required><br>
-    <button type="submit">Увійти</button>
-</form>
-
+<section class="auth-section">
+  <div class="auth-box">
+    <h2>Вхід</h2>
+    <?php if($error): ?>
+      <div class="alert error"><?= htmlspecialchars($error) ?></div>
+    <?php endif; ?>
+    <form method="post" autocomplete="off">
+      <input type="email" name="email" placeholder="Email" required>
+      <input type="password" name="password" placeholder="Пароль" required>
+      <button type="submit">Увійти</button>
+    </form>
+    <a href="register.php" class="auth-link">Ще не маєте акаунту? Зареєструватись</a>
+  </div>
+</section>
 <?php include 'templates/footer.php'; ?>

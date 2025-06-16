@@ -28,24 +28,28 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 }
 
-// Плани для вибору
 $plans = $pdo->query("SELECT * FROM membership_plans")->fetchAll();
+include 'templates/header.php';
 ?>
-<?php include 'templates/header.php'; ?>
-<h2>Реєстрація</h2>
-<?php if($error): ?><div class="alert error"><?= htmlspecialchars($error) ?></div><?php endif; ?>
-<form method="post">
-    <input type="text" name="full_name" placeholder="ПІБ" required>
-    <input type="email" name="email" placeholder="Email" required>
-    <input type="text" name="phone" placeholder="Телефон">
-    <input type="password" name="password" placeholder="Пароль" required>
-    <input type="password" name="password2" placeholder="Повторіть пароль" required>
-    <select name="membership_plan_id" required>
+<section class="auth-section">
+  <div class="auth-box">
+    <h2>Реєстрація</h2>
+    <?php if($error): ?><div class="alert error"><?= htmlspecialchars($error) ?></div><?php endif; ?>
+    <form method="post" autocomplete="off">
+      <input type="text" name="full_name" placeholder="ПІБ" required>
+      <input type="email" name="email" placeholder="Email" required>
+      <input type="text" name="phone" placeholder="Телефон">
+      <input type="password" name="password" placeholder="Пароль" required>
+      <input type="password" name="password2" placeholder="Повторіть пароль" required>
+      <select name="membership_plan_id" required>
         <option value="">Оберіть абонемент</option>
         <?php foreach($plans as $plan): ?>
             <option value="<?=$plan['id']?>"><?=$plan['name']?></option>
         <?php endforeach; ?>
-    </select>
-    <button type="submit">Зареєструватися</button>
-</form>
+      </select>
+      <button type="submit">Зареєструватися</button>
+    </form>
+    <a href="login.php" class="auth-link">Вже є акаунт? Вхід</a>
+  </div>
+</section>
 <?php include 'templates/footer.php'; ?>

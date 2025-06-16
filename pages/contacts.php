@@ -1,17 +1,22 @@
-<?php include 'templates/header.php'; ?>
-<div class="container">
-    <h2>Контакти</h2>
+<?php 
+$page_class = 'contacts';
+include 'templates/header.php'; 
+?>
+<main>
+  <section class="contacts-section">
+    <h1 class="contacts-title">Контакти</h1>
     <div class="contacts-info">
-        <p><strong>Адреса:</strong> вул. Фітнесова, 10, м. Місто</p>
-        <p><strong>Телефон:</strong> +38 (099) 123-45-67</p>
-        <p><strong>Email:</strong> info@powerfit.ua</p>
+      <p><b>Адреса:</b> вул. Фітнесова, 10, м. Місто</p>
+      <p><b>Телефон:</b> <a href="tel:+380991234567">+38 (099) 123-45-67</a></p>
+      <p><b>Email:</b> <a href="mailto:info@powerfit.ua">info@powerfit.ua</a></p>
     </div>
-    <h3>Зв’язатися з нами</h3>
+    <h2 class="contacts-subtitle">Зв’язатися з нами</h2>
     <form method="post" class="contact-form">
-        <input type="text" name="name" placeholder="Ваше ім'я" required>
-        <input type="email" name="email" placeholder="Email" required>
-        <textarea name="message" placeholder="Ваше повідомлення" required></textarea>
-        <button type="submit">Відправити</button>
+      <input type="text" name="name" placeholder="Ваше ім'я" required>
+      <input type="email" name="email" placeholder="Email" required>
+      <textarea name="message" placeholder="Ваше повідомлення" required></textarea>
+      <button type="submit" class="btn btn-primary">Відправити</button>
     </form>
-</div>
+  </section>
+</main>
 <?php include 'templates/footer.php'; ?>
